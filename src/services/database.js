@@ -6,7 +6,7 @@ const { Order } = require("../models/order");
 const { Position } = require("../models/position");
 const { Result } = require("../models/result");
 const { Session } = require("../models/session");
-const { Setting } = require("../models/Setting");
+const { Setting } = require("../models/setting");
 const { Stock } = require("../models/stock");
 const { User } = require("../models/user");
 
