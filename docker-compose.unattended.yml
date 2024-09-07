@@ -1,0 +1,54 @@
+version: "3.1"
+
+services:
+  mongo:
+    container_name: mongo
+    image: mongo:6.0
+    restart: always
+    volumes:
+      - ./data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  robobull:
+    container_name: robobull
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+    command: bash run_unattended.sh
+    volumes:
+      - ./:/app/
+    ports:
+      - "3000:3000"
+    links:
+      - mongo
+
+  mongo-express:
+    image: mongo-express:1.0.2
+    restart: always
+    ports:
+      - 8081:8081
+    links:
+      - mongo
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_SERVER: mongo
+
+  firefox:
+    container_name: firefox
+    restart: no
+    build:
+      context: .
+      dockerfile: docker/python/Dockerfile
+    command: python3 -m pytest -s createUser.py
+    depends_on:
+      robobull:
+        condition: service_started
+        restart: true
+    volumes:
+      - ./.env:/script/.env
+    links:
+      - robobull
