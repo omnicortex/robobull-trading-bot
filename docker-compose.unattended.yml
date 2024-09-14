@@ -26,6 +26,7 @@ services:
       - mongo
 
   mongo-express:
+    container_name: mongo-express
     image: mongo-express:1.0.2
     restart: always
     ports:
