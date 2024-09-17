@@ -26,9 +26,11 @@ def test_create_user(page: Page, load_env) -> None:
             print(return_url)
             user_id = return_url.rsplit('/', 1)[-1]
             print(user_id)
-            os.environ["USER_ID"] = user_id            
-            dotenv.set_key(load_env, "USER_ID", os.environ["USER_ID"])
-            break
+            if [ user_id != '' ]; then
+                os.environ["USER_ID"] = user_id            
+                dotenv.set_key(load_env, "USER_ID", os.environ["USER_ID"])
+                break
+            fi
         except Exception as err:
             print(str(err), page)
         time.sleep(60)
