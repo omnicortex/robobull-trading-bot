@@ -53,3 +53,19 @@ services:
       - ./.env:/script/.env
     links:
       - robobull
+
+  restarter:
+    container_name: restarter
+    build:
+      context: .
+      dockerfile: docker/restarter/Dockerfile
+    restart: unless-stopped
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    entrypoint: ["/bin/sh","-c"]
+    command:
+      - |
+        crond &
+        while true; do
+          crontab -l
+          sleep 86400
+        done
