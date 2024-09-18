@@ -59,7 +59,7 @@ services:
     build:
       context: .
       dockerfile: docker/restarter/Dockerfile
-    restart: unless-stopped
+    restart: always
     volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
     entrypoint: ["/bin/sh","-c"]
     command:
