@@ -13,7 +13,7 @@ services:
 
   robobull:
     container_name: robobull
-    restart: always
+    restart: no
     build:
       context: .
       dockerfile: docker/node/Dockerfile
