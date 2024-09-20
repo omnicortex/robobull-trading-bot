@@ -16,3 +16,8 @@ ln -sf /var/lib/google/docker-compose   ~/.docker/cli-plugins/docker-compose
 #To delete all the images,
 
 #docker rmi -f $(docker images -aq)
+
+#Set timezone on Debian-based or RedHat-based distro
+#timedatectl
+#timedatectl list-timezones
+#sudo timedatectl set-timezone America/New_York

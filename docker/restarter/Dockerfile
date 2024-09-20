@@ -1,5 +1,8 @@
 FROM docker:cli
 
+RUN apk add --no-cache tzdata
+ENV TZ=America/New_York
+
 #Start checking for user id, create if not exist. Run everyday at 12:30am
 RUN echo "20 0 * * * docker restart robobull" >> /var/spool/cron/crontabs/root
 RUN echo "40 0 * * * docker restart firefox" >> /var/spool/cron/crontabs/root
